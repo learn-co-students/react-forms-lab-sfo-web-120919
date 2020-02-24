@@ -4,22 +4,35 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      username: "",
+      password: ""
+    };
   }
+  onChange = (e) => {
+    e.persist();
+    this.setState(previousState => {
+      return{
+      ...previousState, 
+      [e.target.name]: e.target.value
+      }
+    })
+  }
+
 
   render() {
     return (
-      <form>
+      <form onSubmit={(e) => this.props.handleLogin(e, this.state)}>
         <div>
           <label>
             Username
-            <input id="username" name="username" type="text" />
+            <input onChange={this.onChange} value={this.state.username} id="username" name="username" type="text" />
           </label>
         </div>
         <div>
           <label>
             Password
-            <input id="password" name="password" type="password" />
+            <input onChange={this.onChange} value={this.state.password} id="password" name="password" type="password" />
           </label>
         </div>
         <div>
